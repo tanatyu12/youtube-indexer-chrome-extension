@@ -1,0 +1,32 @@
+{
+    "name": "Youtube Indexer",
+    "version": "1.0",
+    "description": "Record the playback position.",
+    "permissions": ["declarativeContent", "storage", "tabs", "activeTab"],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "page_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+          "32": "shimarin_icon.png"
+        }
+    },
+    "content_scripts":[
+      {
+        "matches":[
+          "*://www.youtube.com/watch?*"
+        ],
+        "js":[
+          "content.js"
+        ],
+        "run_at": "document_end",
+        "all_frames": true
+      }
+    ],
+    "icons": {
+      "48": "shimarin_icon.png"
+    },
+    "manifest_version": 2
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" charset="utf-8">
+  <!-- <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="/css/popup.css"> -->
+  <!-- <link rel="stylesheet" href="/lib/jquery-ui-1.12.1/jquery-ui.min.css">
+  <script src="/lib/jquery-3.5.1.min.js"></script>
+  <script src="/lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+  <script src="/lib/popper.min.js"></script>
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <script defer src="/lib/fontawesome-free-5.13.0-web/js/all.js"></script> -->
+</head>
+<header class="fixed-top">
+  <div class="float-left text-center number-of-indices-wrapper">
+    <span class="number-of-indices"></span> indices
+  </div>
+  <div class="float-right text-center adding-folders">
+    <i class="fas fa-plus"></i>
+  </div>
+</header>
+<body>
+  <div id="folder-list" class="list-group">
+  </div>
+</body>
+<div class="modal fade" id="editFolderModal" tabindex="-1" role="dialog" aria-labelledby="editFolderModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editFolderModalTitle">Edit folder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="title">title</label>
+          <input type="text" class="form-control" id="editFolderTitle">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveFolderChanges">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editIndexModal" tabindex="-1" role="dialog" aria-labelledby="editIndexModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editIndexModalTitle">Edit index</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="title">title</label>
+          <input type="text" class="form-control" id="editIndexTitle">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveIndexChanges">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addFolderModal" tabindex="-1" role="dialog" aria-labelledby="addFolderModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFolderModalTitle">Add folder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="title">title</label>
+          <input type="text" class="form-control" id="addFolderTitle">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="addFolder">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="popup.js"></script>
+</html>
