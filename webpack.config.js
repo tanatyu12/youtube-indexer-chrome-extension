@@ -63,7 +63,7 @@ module.exports = {
           to: path.join(__dirname, './dist')
         },
         {
-          from: './src/images/shimarin_icon.png',
+          from: './src/images/icon.png',
           to: path.join(__dirname, './dist')
         },
         {

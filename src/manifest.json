@@ -7,11 +7,12 @@
       "scripts": ["background.js"],
       "persistent": false
     },
-    "page_action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-          "32": "shimarin_icon.png"
-        }
+    "browser_action":{
+      "default_icon": {
+        "32": "icon.png"
+      },
+      "default_title":"Youtube Indexer",
+      "default_popup":"popup.html"
     },
     "content_scripts":[
       {
@@ -26,7 +27,7 @@
       }
     ],
     "icons": {
-      "48": "shimarin_icon.png"
+      "48": "icon.png"
     },
     "manifest_version": 2
 }

@@ -11,14 +11,15 @@ import { getItem, setItem } from './storage.js';
 
 let folders;
 let indices;
-let folderMap = {};
-let indexMap = {};
-let folderIndicesMap = {};
+let folderMap = {}; // key: folder id, value: folder
+let indexMap = {}; // key: index id, value: index
+let folderIndicesMap = {}; // key: folder id, value: indices
 
-let clickedType = '';
-let clickedId = '';
+let clickedType = ''; // folder or index
+let clickedId = ''; // folder id or index id
 
 $(function() {
+  // adding folder tooltip
   $('.adding-folders').tooltip({
     placement : "top",
     html: true,
@@ -39,9 +40,7 @@ $(function() {
     return true
   }
 
-  const show = (folders, indices) => {
-    console.log(folders);
-    console.log(indices);
+  const render = (folders, indices) => {
     $('#folder-list').empty();
     $('.number-of-indices').text(indices.length);
     folders.forEach(folder => {
@@ -49,6 +48,7 @@ $(function() {
     });
     refreshIndexMap();
     refreshFolderIndicesMap();
+
     $('#folder-list').sortable({
       cursor: 'move',
       tolerance: 'pointer',
@@ -64,23 +64,21 @@ $(function() {
         if (ui.item.prev().attr('id')) {
           if (!ui.item.prev().attr('id').match(/-contents$/)) {
             const replacedFolderId = ui.item.prev().attr('id');
-            console.log(replacedFolderId);
             $(`#${replacedFolderId}-contents`).insertAfter(`#${replacedFolderId}`);
           }
         }
       },
       update: function(event, ui) {
-        console.log('update');
-        console.log($('#folder-list').sortable('toArray'));
         const order = $('#folder-list').sortable('toArray').filter(value => !value.match(/-contents$/));
-        console.log(order);
         changeFolderOrder(order);
         displayIndicesWrapperIfEmpty(ui.item.attr('id'));
       }
     });
+
     folders.sort(function(a, b) {
       return a.order - b.order;
     });
+    // render folder
     folders.forEach(folder => {
       const folderListElm = `<div id="${folder.id}" class="list-group-item list-group-item-action folder ellipsis">
         <i class="fas fa-folder"></i><span class="folder-title">${folder.name}</span>
@@ -89,6 +87,8 @@ $(function() {
         </span>
       </div>`;
       $('#folder-list').append(folderListElm);
+
+      // render indices per folder (folder contents)
       const indexListElm = `<div id="${folder.id}-contents" class="list-group indices-wrapper"></div>`;
       $(`#${folder.id}`).after(indexListElm);
       $(`#${folder.id}-contents`).hide();
@@ -99,9 +99,7 @@ $(function() {
         delay: 150,
         connectWith: '.indices-wrapper',
         update: function(event, ui) {
-          console.log('update');
           const order = $(`#${folder.id}-contents`).sortable('toArray');
-          console.log(order);
           const originFolderId = indexMap[ui.item.attr('id')].folderId;
           moveIndexIfReceived(order, folder.id);
           changeIndexOrder(order).then(res => {
@@ -194,7 +192,6 @@ $(function() {
       indexMap[value].order = i;
     });
     indices = Object.values(indexMap);
-    console.log(indices);
     await setItem('indices', indices);
     return true;
   }
@@ -212,7 +209,6 @@ $(function() {
       folderMap[value].order = i;
     });
     folders = Object.values(folderMap);
-    console.log(folders);
     await setItem('folders', folders);
     return true;
   }
@@ -225,8 +221,6 @@ $(function() {
     if (folders.length === 0 || sameFolderAlreadyExists === false) {
       folder.order = folders.length;
       folders.push(folder);
-      console.log('added folder');
-      console.log(folder);
       await setItem('folders', folders);
     }
     return true;
@@ -239,15 +233,10 @@ $(function() {
   }
 
   $(document).on('click', '.menu-icon', function(event) {
-    console.log('enter');
     if ($(this).parent().hasClass('folder')) {
-      console.log('folder clicked');
-      console.log(clickedType);
       clickedType = 'folder';
       clickedId = $(this).parent().attr('id');
     } else if ($(this).parent().hasClass('index-wrapper')) {
-      console.log('index clicked');
-      console.log(clickedType);
       clickedType = 'index';
       clickedId = $(this).parent().attr('id');
     }
@@ -265,11 +254,8 @@ $(function() {
 
   $(document).on({
     'click': function() {
-      console.log('edit clicked');
       $('.focused').tooltip('hide');
       if (clickedType === 'index') {
-        console.log(indexMap);
-        console.log(clickedId);
         $('#editIndexTitle').val(indexMap[clickedId].title);
         $('#editIndexModal').modal();
       } else if (clickedType === 'folder') {
@@ -297,7 +283,6 @@ $(function() {
 
   $(document).on({
     'click': function() {
-      console.log('fa-plus');
       $('#addFolderModal').modal();
     }
   }, '.fa-plus');
@@ -309,13 +294,12 @@ $(function() {
       name: $('#addFolderTitle').val().trim()
     };
     addFolder(folder).then(res => {
-      show(folders, indices);
+      render(folders, indices);
     });
   });
 
   $(document).on({
     'click': function() {
-      console.log('delete clicked');
       if (clickedType === 'index') {
         deleteIndex(clickedId).then(res => {
           displayIndicesWrapperIfEmpty(indexMap[clickedId].folderId);
@@ -338,7 +322,6 @@ $(function() {
 
   $(document).click(function(event) {
     if(!$(event.target).closest('.tooltip').length) {
-      console.log('外側がクリックされました。');
       $('.focused').tooltip('hide');
     }
   });
@@ -373,6 +356,6 @@ $(function() {
   }, '.index-wrapper');
 
   getData().then(res => {
-    show(folders, indices);
+    render(folders, indices);
   });
 });

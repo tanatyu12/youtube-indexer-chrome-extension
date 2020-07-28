@@ -1,7 +1,6 @@
 import { getItem, setItem } from './storage.js';
 
 const saveIndexAndFolder = async (folder, index) => {
-  console.log("save");
   let indices = await getItem('indices');
   let folders = await getItem('folders');
   if (folders === undefined) {
@@ -35,32 +34,10 @@ const saveIndexAndFolder = async (folder, index) => {
   };
 }
 
-chrome.runtime.onInstalled.addListener(function() {
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-      chrome.declarativeContent.onPageChanged.addRules([{
-        conditions: [new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {hostEquals: 'www.youtube.com'},
-        })
-        ],
-        actions: [new chrome.declarativeContent.ShowPageAction()]
-      }]);
-    });
-});
-
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log("request");
-    console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
     if (request.message == "save") {
-      console.log(request.index);
-      console.log(request.folder);
-      saveIndexAndFolder(request.folder, request.index).then(res => {
-        console.log(res.index);
-        console.log(res.folder);
-        return sendResponse(res);
-      });
+      saveIndexAndFolder(request.folder, request.index);
       return true;
     }
 });
