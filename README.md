@@ -15,7 +15,7 @@ Go to playback position
 - mainly use jQuery
 - exists ES2015+ syntax (Using Babel)
 
-# Usage
+# Installation
 ```bash
 # clone
 git clone https://github.com/tanatyu12/youtube-indexer-chrome-extension.git
