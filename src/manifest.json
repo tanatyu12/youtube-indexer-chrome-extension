@@ -1,8 +1,8 @@
 {
-    "name": "Youtube Indexer",
-    "version": "1.0",
-    "description": "Record the playback position.",
-    "permissions": ["declarativeContent", "storage", "tabs", "activeTab"],
+    "name": "YouTube Indexer",
+    "version": "1.01",
+    "description": "manage YouTube video playback position",
+    "permissions": ["storage"],
     "background": {
       "scripts": ["background.js"],
       "persistent": false
@@ -11,7 +11,7 @@
       "default_icon": {
         "32": "icon.png"
       },
-      "default_title":"Youtube Indexer",
+      "default_title":"YouTube Indexer",
       "default_popup":"popup.html"
     },
     "content_scripts":[
@@ -27,7 +27,8 @@
       }
     ],
     "icons": {
-      "48": "icon.png"
+      "48": "icon.png",
+      "128": "icon.png"
     },
     "manifest_version": 2
 }

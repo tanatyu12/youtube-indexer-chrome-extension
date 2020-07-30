@@ -1,8 +1,8 @@
-# Youtube Indexer
-Save Youtube video playback positions and manage them.
+# YouTube Indexer
+Save YouTube video playback positions and manage them.
 
 # DEMO
-Save Youtube video playback position
+Save YouTube video playback position
 (click "index" button)
 ![save-playback-position](https://github.com/tanatyu12/youtube-indexer-chrome-extension/blob/images/images/youtube-indexer1.gif?raw=true)
 
@@ -10,7 +10,7 @@ Go to playback position
 ![go-to-playback-position](https://github.com/tanatyu12/youtube-indexer-chrome-extension/blob/images/images/youtube-indexer2.gif?raw=true)
 
 # Features
-- manage Youtube video playback position easily and intuitively
+- manage YouTube video playback position easily and intuitively
 - go to the position quickly
 - mainly use jQuery
 - exists ES2015+ syntax (Using Babel)
@@ -28,4 +28,4 @@ npm run build
 ```
 
 # License
-"Youtube Indexer" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
+[MIT](https://en.wikipedia.org/wiki/MIT_License)
